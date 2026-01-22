@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Hexpro",
+    "slug": "hexpro",
+    "version": "1.0.0",
+    "platforms": ["android"],
+    "android": {
+      "package": "com.konvex.hexpro"
+    }
+  }
+}
