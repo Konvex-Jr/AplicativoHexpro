@@ -23,7 +23,8 @@
     "android": {
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.konvex.hexpro"
+      "package": "com.hex.pro",
+      "versionCode": 100
     },
 
     "web": {
