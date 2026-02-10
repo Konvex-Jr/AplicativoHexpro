@@ -48,3 +48,64 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+📱 Android Release Workflow
+This section documents the specific steps required to build and release the Android version of the app, managing signing keys and versioning manually via Gradle.
+
+🔑 Signing Keys & Security
+To build a release version (production), the app requires a specific keystore and configuration file.
+
+⚠️ IMPORTANT: The keystore file (.jks) and the properties file (key.properties) contain sensitive information. They are NOT included in the repository for security reasons.
+
+If you are setting up this project on a new machine, you must place the files manually:
+
+Keystore File: Place your hexpro-upload-key.jks file inside android/app/.
+
+Properties File: Create a key.properties file inside android/ with the following structure:
+
+Properties
+
+storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=hexpro
+storeFile=hexpro-upload-key.jks
+📈 Versioning
+Before generating a new build for the Google Play Store, you must increment the version numbers in the native Android configuration.
+
+Open android/app/build.gradle.
+
+Locate the defaultConfig block.
+
+Update the following values:
+
+versionCode: An integer (e.g., 100). Must be higher than the previous version uploaded to the Play Store.
+
+versionName: A string (e.g., "1.0.0"). This is what users see in the store.
+
+Gradle
+
+defaultConfig {
+    applicationId "com.hex.pro"
+    versionCode 101       // <--- Increment this for every release
+    versionName "1.0.1"   // <--- Update this for users
+    // ...
+}
+🚀 Generating the Release Bundle (.aab)
+Google Play requires an Android App Bundle (.aab) for distribution. To generate it:
+
+Navigate to the android directory:
+
+Bash
+
+cd android
+Clean previous builds (recommended to avoid cache issues):
+
+Bash
+
+./gradlew clean
+Generate the bundle:
+
+Bash
+
+./gradlew bundleRelease
+Output Location: The final signed file will be generated at: android/app/build/outputs/bundle/release/app-release.aab
